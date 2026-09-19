@@ -3,11 +3,6 @@
 B.Tech CSE, AY 2026-27. End-to-end ML pipelines across Regression, Classification,
 and Clustering tracks.
 
-## Team
-- *<Name 1, Roll No.>*
-- *<Name 2, Roll No.>*
-- *<Name 3, Roll No.>*
-
 ## Datasets
 
 | Track | Dataset | Target | File(s) |
