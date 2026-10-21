@@ -11,6 +11,5 @@ guidlines.pdf
 /marketing_campaign.csv
 /reg_dataset.csv
 
-# Large binary models exceeding GitHub 100MB threshold
-models/best_regression_model.pkl
+# All model .pkl files are tracked (all under 100MB GitHub limit)
 
