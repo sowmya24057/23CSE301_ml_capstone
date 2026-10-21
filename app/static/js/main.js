@@ -523,6 +523,9 @@ function switchChartTab(tabKey) {
 
 /**
  * Render Chart using Chart.js directly matching Notebook Cells 23 & 24
+ * Client-side Chart.js rendering engine — Hasini Battu (Person 3)
+ * Responsible for: multi-model ROC curve rendering, appState chart lifecycle,
+ * dataset switching, and dynamic legend/tooltip configuration.
  */
 function renderChart(tabKey) {
     if (!appState.currentResults) return;
@@ -592,6 +595,8 @@ function renderChart(tabKey) {
             });
         } else if (tabKey === 'roc') {
             // Notebook Cell 24: Consolidated ROC Curves for All 10 Algorithms
+            // ROC dataset builder & Chart.js line chart: Hasini Battu (Person 3)
+            // Builds one dataset per model with AUC label; adds random-classifier diagonal
             const rocCurves = chartsData.roc_curves || [];
             const datasets = rocCurves.map(rc => ({
                 label: `${rc.model} (AUC = ${rc.auc.toFixed(3)})`,
