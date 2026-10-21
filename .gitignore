@@ -1,0 +1,16 @@
+# System and temporary files
+.DS_Store
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+*.egg-info/
+guidlines.pdf
+
+# Root duplicate files (clean versions tracked in data/)
+/classification_heart.csv
+/marketing_campaign.csv
+/reg_dataset.csv
+
+# Large binary models exceeding GitHub 100MB threshold
+models/best_regression_model.pkl
+
