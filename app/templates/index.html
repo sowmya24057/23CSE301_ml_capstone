@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Capstone — Comparative Model Suite</title>
+    <meta name="description" content="Clean and classic Machine Learning Capstone platform: Select a dataset, configure inputs, and compare answers across all evaluated algorithms.">
+    
+    <!-- Classic Google Fonts: Newsreader (Serif) + Inter (Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js for clean classic comparison charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Classic, Clean Styling -->
+    <link rel="stylesheet" href="/static/css/style.css?v=20261021_3">
+</head>
+<body>
+
+    <div class="page-container">
+
+        <!-- Classic Header -->
+        <header class="classic-header">
+            <div class="header-inner">
+                <div class="header-titles">
+                    <span class="header-pretitle">23CSE301 · Machine Learning Capstone</span>
+                    <h1 class="header-main-title">Comparative Algorithmic Laboratory</h1>
+                    <p class="header-subtitle">Select a dataset to configure input features and evaluate comparative predictions across all trained algorithms.</p>
+                </div>
+                <div class="header-badges">
+                    <span class="status-pill"><span class="status-dot"></span> System Online</span>
+                    <span class="status-pill text-muted">Python 3 · Scikit-Learn</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ============================================================== -->
+        <!-- VIEW 1: DATASET SELECTION (AT FIRST: JUST DISPLAY 3 DATASETS)  -->
+        <!-- ============================================================== -->
+        <section id="datasetSelectionView" class="dataset-selection-view">
+            <div class="section-lead">
+                <h2 class="section-title">Select a Dataset to Begin</h2>
+                <p class="section-desc">Choose one of the three capstone tracks below. You will be prompted to enter inputs and view predictions from all evaluated algorithms.</p>
+            </div>
+
+            <div class="datasets-grid">
+                <!-- Dataset 1: Bike Sharing Regression -->
+                <article class="dataset-card" id="cardRegression" style="cursor: pointer;" onclick="selectDataset('regression')">
+                    <div class="card-track-badge badge-regression">Track 1 · Regression</div>
+                    <h3 class="card-title">Bike Sharing Demand</h3>
+                    <p class="card-desc">Forecast hourly bike rental demand in Washington D.C. based on seasonality, hour of day, rush hour, and meteorological factors.</p>
+                    
+                    <div class="card-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Dataset</span>
+                            <span class="meta-value">Capital Bikeshare (17,379 hours)</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Evaluated</span>
+                            <span class="meta-value"><strong>10 Algorithms</strong> (Random Forest, GBM, KNN, Tree, SVR, etc.)</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Champion Model</span>
+                            <span class="meta-value">Random Forest Regressor (R² = 0.9412)</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block select-dataset-btn" onclick="event.stopPropagation(); selectDataset('regression')">
+                        Select Bike Sharing Dataset &rarr;
+                    </button>
+                </article>
+
+                <!-- Dataset 2: Heart Disease Classification -->
+                <article class="dataset-card" id="cardClassification" style="cursor: pointer;" onclick="selectDataset('classification')">
+                    <div class="card-track-badge badge-classification">Track 2 · Classification</div>
+                    <h3 class="card-title">Heart Disease Diagnosis</h3>
+                    <p class="card-desc">Non-invasive clinical detection of Coronary Artery Disease (&ge; 50% stenosis) using patient demographic, symptomatic, and ECG markers.</p>
+                    
+                    <div class="card-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Dataset</span>
+                            <span class="meta-value">UCI Multi-Center Cohort (920 patients)</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Evaluated</span>
+                            <span class="meta-value"><strong>10 Algorithms</strong> (Gradient Boosting, SVC, Naive Bayes, MLP, etc.)</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Champion Model</span>
+                            <span class="meta-value">Gradient Boosting Classifier (ROC-AUC = 0.8984)</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block select-dataset-btn" onclick="event.stopPropagation(); selectDataset('classification')">
+                        Select Heart Disease Dataset &rarr;
+                    </button>
+                </article>
+
+                <!-- Dataset 3: Customer Segmentation Clustering -->
+                <article class="dataset-card" id="cardClustering" style="cursor: pointer;" onclick="selectDataset('clustering')">
+                    <div class="card-track-badge badge-clustering">Track 3 · Clustering</div>
+                    <h3 class="card-title">Customer Segmentation</h3>
+                    <p class="card-desc">Unsupervised behavioral customer segmentation to discover retail marketing personas and omnichannel spending patterns.</p>
+                    
+                    <div class="card-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Dataset</span>
+                            <span class="meta-value">Customer Personality (2,240 customers)</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Evaluated</span>
+                            <span class="meta-value"><strong>5 Configurations</strong> (K-Means k=3, Ward, k=4, Complete, Average)</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Champion Model</span>
+                            <span class="meta-value">K-Means (k = 3 Personas, Silhouette = 0.2724)</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block select-dataset-btn" onclick="event.stopPropagation(); selectDataset('clustering')">
+                        Select Customer Dataset &rarr;
+                    </button>
+                </article>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- VIEW 2: INPUTS & OUTPUTS WORKSPACE (ACTIVE ON DATASET SELECT) -->
+        <!-- ============================================================== -->
+        <main id="workspaceView" class="workspace-view" style="display: none;">
+            
+            <!-- Top Navigation & Track Tabs -->
+            <div class="workspace-nav">
+                <div class="workspace-nav-left">
+                    <button class="btn btn-outline btn-sm" onclick="returnToDatasetSelection()">
+                        &larr; All Datasets Overview
+                    </button>
+                    <div class="dataset-pill" id="activeDatasetPill">Selected: Track 1 · Bike Sharing Demand (Regression)</div>
+                </div>
+
+                <!-- Interactive 3-Track Quick Switcher Tabs -->
+                <div class="track-switcher-tabs" id="trackSwitcherTabs">
+                    <button type="button" class="track-tab-btn active" id="trackTab_regression" onclick="selectDataset('regression')">
+                        <span class="track-tab-num">1</span> Bike Sharing (Regression)
+                    </button>
+                    <button type="button" class="track-tab-btn" id="trackTab_classification" onclick="selectDataset('classification')">
+                        <span class="track-tab-num">2</span> Heart Disease (Classification)
+                    </button>
+                    <button type="button" class="track-tab-btn" id="trackTab_clustering" onclick="selectDataset('clustering')">
+                        <span class="track-tab-num">3</span> Customer Segmentation (Clustering)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dataset Active Header -->
+            <div class="active-dataset-header">
+                <h2 class="active-dataset-title" id="activeDatasetTitle">Bike Sharing Demand Forecasting</h2>
+                <p class="active-dataset-desc" id="activeDatasetDesc">Configure temporal schedule and weather factors to evaluate predictions across all 10 trained regression algorithms.</p>
+            </div>
+
+            <!-- Quick Presets Row -->
+            <div class="presets-container" id="presetsContainer">
+                <span class="presets-label">Quick Presets:</span>
+                <div class="presets-list" id="presetsList">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+
+            <!-- INPUT FORMS CONTAINER -->
+            <div class="form-card">
+                <!-- Form: Regression -->
+                <form id="formRegression" class="feature-form" style="display: none;" onsubmit="handleFormSubmit(event, 'regression')">
+                    <h3 class="form-section-title">Input Parameters</h3>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="reg_season">Season</label>
+                            <select id="reg_season" name="season" class="form-control">
+                                <option value="1">Spring</option>
+                                <option value="2">Summer</option>
+                                <option value="3" selected>Fall</option>
+                                <option value="4">Winter</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg_yr">Year</label>
+                            <select id="reg_yr" name="yr" class="form-control">
+                                <option value="0">2011 (Year 0)</option>
+                                <option value="1" selected>2012 (Year 1)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg_mnth">Month</label>
+                            <select id="reg_mnth" name="mnth" class="form-control">
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7" selected>July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg_hr">Hour of Day (0–23)</label>
+                            <input type="number" id="reg_hr" name="hr" min="0" max="23" value="17" class="form-control">
+                            <span class="field-hint">e.g. 17 = 5:00 PM (commute peak)</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg_workingday">Day Type</label>
+                            <select id="reg_workingday" name="workingday" class="form-control">
+                                <option value="1" selected>Working Day (Mon–Fri)</option>
+                                <option value="0">Weekend / Holiday</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg_weekday">Day of Week</label>
+                            <select id="reg_weekday" name="weekday" class="form-control">
+                                <option value="0">Sunday</option>
+                                <option value="1">Monday</option>
+                                <option value="2">Tuesday</option>
+                                <option value="3" selected>Wednesday</option>
+                                <option value="4">Thursday</option>
+                                <option value="5">Friday</option>
+                                <option value="6">Saturday</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg_holiday">Holiday</label>
+                            <select id="reg_holiday" name="holiday" class="form-control">
+                                <option value="0" selected>No (Standard Day)</option>
+                                <option value="1">Yes (Official Holiday)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg_weathersit">Weather Condition</label>
+                            <select id="reg_weathersit" name="weathersit" class="form-control">
+                                <option value="1" selected>1: Clear / Few Clouds</option>
+                                <option value="2">2: Mist / Overcast</option>
+                                <option value="3">3: Light Rain / Snow</option>
+                                <option value="4">4: Heavy Rain / Thunderstorm</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg_temp_c">Temperature (°C)</label>
+                            <input type="number" id="reg_temp_c" name="temp_c" step="0.5" min="-5" max="42" value="28.0" class="form-control">
+                            <span class="field-hint">Actual Celsius temperature</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg_atemp_c">Feeling Temperature (°C)</label>
+                            <input type="number" id="reg_atemp_c" name="atemp_c" step="0.5" min="-5" max="50" value="31.0" class="form-control">
+                            <span class="field-hint">Perceived thermal index</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg_hum">Humidity (%)</label>
+                            <input type="number" id="reg_hum" name="hum" min="0" max="100" value="45" class="form-control">
+                            <span class="field-hint">Relative humidity percentage</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg_windspeed_kmh">Wind Speed (km/h)</label>
+                            <input type="number" id="reg_windspeed_kmh" name="windspeed_kmh" step="0.5" min="0" max="67" value="12.0" class="form-control">
+                            <span class="field-hint">Surface wind velocity</span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-lg" id="submitBtnRegression">
+                            Run All 10 Algorithms &rarr;
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Form: Classification -->
+                <form id="formClassification" class="feature-form" style="display: none;" onsubmit="handleFormSubmit(event, 'classification')">
+                    <h3 class="form-section-title">Patient Clinical Indicators</h3>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="clf_age">Patient Age (Years)</label>
+                            <input type="number" id="clf_age" name="age" min="20" max="95" value="62" class="form-control">
+                            <span class="field-hint">Chronological age</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clf_sex">Biological Sex</label>
+                            <select id="clf_sex" name="sex" class="form-control">
+                                <option value="Male" selected>Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clf_cp">Chest Pain Type</label>
+                            <select id="clf_cp" name="cp" class="form-control">
+                                <option value="asymptomatic" selected>Asymptomatic (Silent CAD risk)</option>
+                                <option value="typical angina">Typical Angina</option>
+                                <option value="atypical angina">Atypical Angina</option>
+                                <option value="non-anginal">Non-Anginal Pain</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clf_trestbps">Resting Blood Pressure (mmHg)</label>
+                            <input type="number" id="clf_trestbps" name="trestbps" min="80" max="220" value="155" class="form-control">
+                            <span class="field-hint">Systolic BP upon clinic admission</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clf_chol">Serum Cholesterol (mg/dL)</label>
+                            <input type="number" id="clf_chol" name="chol" min="100" max="600" value="285" class="form-control">
+                            <span class="field-hint">Total serum cholesterol level</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clf_fbs">Fasting Blood Sugar > 120 mg/dL</label>
+                            <select id="clf_fbs" name="fbs" class="form-control">
+                                <option value="0">No (Fasting Normal)</option>
+                                <option value="1" selected>Yes (Diabetic / Impaired)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clf_restecg">Resting Electrocardiogram (ECG)</label>
+                            <select id="clf_restecg" name="restecg" class="form-control">
+                                <option value="normal">Normal</option>
+                                <option value="st-t abnormality">ST-T Wave Abnormality</option>
+                                <option value="lv hypertrophy" selected>Left Ventricular Hypertrophy</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clf_thalch">Peak Exercise Heart Rate (bpm)</label>
+                            <input type="number" id="clf_thalch" name="thalch" min="60" max="220" value="118" class="form-control">
+                            <span class="field-hint">Maximum achieved exertion HR</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clf_exang">Exercise-Induced Angina</label>
+                            <select id="clf_exang" name="exang" class="form-control">
+                                <option value="0">No</option>
+                                <option value="1" selected>Yes (Angina during stress)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clf_oldpeak">ST Depression Oldpeak (mm)</label>
+                            <input type="number" id="clf_oldpeak" name="oldpeak" step="0.1" min="0" max="7.0" value="2.6" class="form-control">
+                            <span class="field-hint">Exertion-induced ST depression</span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-lg" id="submitBtnClassification">
+                            Run All 10 Algorithms &rarr;
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Form: Clustering -->
+                <form id="formClustering" class="feature-form" style="display: none;" onsubmit="handleFormSubmit(event, 'clustering')">
+                    <h3 class="form-section-title">Customer Behavioral Profile</h3>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="cl_age">Customer Age</label>
+                            <input type="number" id="cl_age" name="Age" min="18" max="95" value="48" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cl_income">Annual Income ($)</label>
+                            <input type="number" id="cl_income" name="Income" step="1000" min="5000" max="250000" value="92000" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cl_spending">Total Spending ($)</label>
+                            <input type="number" id="cl_spending" name="Total_Spending" step="20" min="0" max="4000" value="1750" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cl_children">Total Children in Household</label>
+                            <input type="number" id="cl_children" name="Children" min="0" max="5" value="0" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cl_recency">Days Since Last Purchase (Recency)</label>
+                            <input type="number" id="cl_recency" name="Recency" min="0" max="100" value="14" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cl_total_purchases">Total Number of Purchases</label>
+                            <input type="number" id="cl_total_purchases" name="Total_Purchases" min="0" max="60" value="24" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cl_store">In-Store Purchases</label>
+                            <input type="number" id="cl_store" name="NumStorePurchases" min="0" max="30" value="9" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cl_web">Web Purchases</label>
+                            <input type="number" id="cl_web" name="NumWebPurchases" min="0" max="30" value="8" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cl_catalog">Catalog Purchases</label>
+                            <input type="number" id="cl_catalog" name="NumCatalogPurchases" min="0" max="30" value="7" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cl_web_visits">Monthly Website Visits</label>
+                            <input type="number" id="cl_web_visits" name="NumWebVisitsMonth" min="0" max="30" value="2" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-lg" id="submitBtnClustering">
+                            Run All 5 Clustering Formulations &rarr;
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- OUTPUTS SECTION: COMPARATIVE RESULTS ACROSS ALL ALGORITHMS      -->
+            <!-- ============================================================== -->
+            <section id="resultsSection" class="results-section" style="display: none;">
+                
+                <div class="results-header">
+                    <h3 class="results-main-title">Comparative Results Across All Algorithms</h3>
+                    <p class="results-sub-title">Evaluation of submitted features across every model trained in this capstone track.</p>
+                </div>
+
+                <!-- 1. Champion Model Output (Algo name and output it gave) -->
+                <div class="champion-card" id="championCard">
+                    <div class="champion-badge-row">
+                        <span class="badge-champion">Top Performing Algorithm</span>
+                        <span class="champion-model-name" id="championModelName">Gradient Boosting Classifier (Tuned)</span>
+                    </div>
+
+                    <div class="champion-highlight-grid">
+                        <div class="champion-stat-box">
+                            <div class="champion-stat-label">Model Output for Submitted Inputs</div>
+                            <div class="champion-stat-value" id="championAnswerValue">CAD Detected (Positive)</div>
+                            <div class="champion-stat-unit" id="championAnswerUnit">77.0% Probability</div>
+                        </div>
+
+                        <div class="champion-detail-box">
+                            <div class="champion-tier-badge" id="championTierBadge">High Clinical Risk</div>
+                            <p class="champion-recommendation" id="championRecommendation">
+                                Recommendation and clinical/operational insight text will appear here.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Consolidated Comparison Table (Directly from Notebook Cell 22) -->
+                <div class="table-card" id="tableCard">
+                    <div class="table-card-header">
+                        <div>
+                            <h4 class="table-title" id="tableTitle">Consolidated Algorithm Comparison Table</h4>
+                            <span class="table-caption" id="tableCaption">Live predictions evaluated alongside benchmark rubric metrics</span>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="classic-table" id="algorithmsTable">
+                            <thead id="algorithmsTableHead">
+                                <!-- Populated dynamically based on track -->
+                            </thead>
+                            <tbody id="algorithmsTableBody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 3. Visual Comparison Graphs (Directly from Notebook Cells 23 & 24) -->
+                <div class="charts-card" id="chartsCard">
+                    <div class="charts-header">
+                        <h4 class="charts-title" id="chartsMainTitle">Algorithmic Evaluation Visualisations</h4>
+                        <div class="charts-tabs" id="chartsTabContainer">
+                            <button class="chart-tab active" id="tabChart1" onclick="switchChartTab('multimetric')">Multi-Metric (Cell 23)</button>
+                            <button class="chart-tab" id="tabChart2" onclick="switchChartTab('roc')">ROC Curves (Cell 24)</button>
+                            <button class="chart-tab" id="tabChart3" onclick="switchChartTab('predictions')">Live Predictions</button>
+                        </div>
+                    </div>
+
+                    <div class="chart-wrapper">
+                        <canvas id="comparisonChartCanvas" height="360"></canvas>
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="results-actions">
+                    <button class="btn btn-outline" onclick="scrollToInputs()">
+                        &uarr; Modify Inputs
+                    </button>
+                    <button class="btn btn-primary" onclick="returnToDatasetSelection()">
+                        &larr; Choose Another Dataset
+                    </button>
+                </div>
+
+            </section>
+
+        </main>
+
+        <!-- Classic Footer -->
+        <footer class="classic-footer">
+            <div class="footer-inner">
+                <span>Machine Learning Capstone Project · Dynamic Multi-Algorithm Inference</span>
+                <span>Tracks: Regression, Classification, Clustering</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Application Script -->
+    <script src="/static/js/main.js?v=20261021_3"></script>
+</body>
+</html>
