@@ -293,7 +293,7 @@ def predict_regression():
             elif 'Linear' in model_name: model_key = 'Linear Regression'
             elif 'Lasso' in model_name: model_key = 'Lasso Regression'
             elif 'Gradient Boosting' in model_name: model_key = 'Gradient Boosting'
-            elif 'KNN' in model_name: model_key = 'KNN Regressor'
+            elif 'K-Nearest' in model_name: model_key = 'KNN Regressor'
             elif 'Decision Tree' in model_name: model_key = 'Decision Tree'
             elif 'Polynomial' in model_name: model_key = 'Polynomial Regression (deg=2)'
             elif 'SVR' in model_name: model_key = 'SVR'
