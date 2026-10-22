@@ -165,15 +165,17 @@ Ensure you have Python 3.9+ installed, then install all project requirements:
 pip install -r requirements.txt
 ```
 
-### 3.2 Running the Interactive Web Application
-Launch the Flask predictive web application:
+### 3.2 Running the Interactive Streamlit Web Application (Bonus Opportunities +2 Marks)
+Launch the interactive Streamlit application:
 ```bash
-python app/app.py
+streamlit run app/app.py
+# or
+streamlit run app.py
 ```
-Open **`http://127.0.0.1:5050`** in any web browser to access:
-- **Bike Sharing Regression (Capital Bikeshare)**: Hourly rental demand forecasting with Tuned Random Forest ($R^2 = 0.9412$).
-- **Cardiology Classification (UCI CAD)**: Non-invasive coronary artery disease diagnostic triage with Tuned Gradient Boosting ($	ext{ROC-AUC} = 0.8984$).
-- **Customer Segmentation (Marketing Campaign)**: Behavioral persona profiling with K-Means ($k=3$) and omnichannel marketing strategies.
+Open **`http://localhost:8501`** in any web browser to access:
+- **Interactive Multi-Track Workbench**: Seamlessly switch between Regression (Bike Sharing Demand), Classification (Heart Disease Triage), and Clustering (Customer Personality Analysis).
+- **Comprehensive Rubric Coverage**: Full tabs for Dataset & EDA (histograms, heatmaps, commentary), Preprocessing & Feature Engineering inspector, 10-Algorithm benchmark rankings with GridSearchCV gains, deep diagnostic curves (ROC overlay, confusion matrix, residuals, PCA & t-SNE), real-time live multi-model prediction, and batch CSV scoring with artifact exports.
+- **Bonus Deployment Ready**: Native configuration for Streamlit Community Cloud and Render.
 
 ### 3.3 Running the Jupyter Notebooks
 Launch the Jupyter Notebook environment:
